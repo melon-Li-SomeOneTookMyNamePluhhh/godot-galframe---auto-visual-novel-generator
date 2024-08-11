@@ -1,0 +1,6 @@
+月下:不过人类说框架要么在八月20号之前会发布  command: (character, laopo.png) (character, guanxin.png, right)
+月下:不然就跳票到12月甚至明年了 command: (character, worry.png) (character, guanxin.png, right)
+河豚:话说这家伙这几天一直在念叨什么-26 command: (character, worry.png) (character, guanxin.png, right) (character, hetun.png, left)
+河豚:敲代码这么勤快的原因不会是花了26块在原制作组引擎上然后被逆天功能恶心到了吧
+choice
+绝对不是！！！！ c.txt
