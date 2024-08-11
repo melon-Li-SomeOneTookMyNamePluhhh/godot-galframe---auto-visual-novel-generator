@@ -4,7 +4,7 @@ this is godot galframe, a godot project that can generate visual novel (galgame 
 this frame work has already set up many basic functions a galgame has, such as auto play, forward, save&load etc  
 该框架尚未完成，且代码较为史山，想看代码的建议配备降压药  
 the frame work is incomplete and has a very messy code in certain parts, it is not advised to attempt to learn anything from the code in this project  
-下载框架请点击这里  
+下载框架请点击[这里](https://github.com/melon-Li-SomeOneTookMyNamePluhhh/godot-galframe---auto-visual-novel-generator/releases)  
 to download the frame work, click here  
 建议参考发布的教程选择想要下载的版本  
 it is advised to watch the given tutorial to download the version you want  
