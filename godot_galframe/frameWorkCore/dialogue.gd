@@ -11,7 +11,6 @@ func _ready():
 		_start_dialogue()
 	else:
 		self.set_process(false)
-	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	var data = ResourceLoader.load("user://save/save_total.tres")
@@ -24,8 +23,6 @@ func _process(delta):
 		self.visible_ratio += (data.auto_play_speed * delta)/self.text.length()
 	else:
 		self.visible_ratio += (data.play_speed * delta)/self.text.length()
-
-
 func _start_dialogue():
 	if initialization:
 		initialization = false

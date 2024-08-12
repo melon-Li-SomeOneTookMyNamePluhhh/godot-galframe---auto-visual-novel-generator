@@ -12,7 +12,7 @@ func load_value():
 	$auto_play_speed/HBoxContainer/data_display_box/CenterContainer/data_display.text = str(saved_data.play_speed * (50.0 / 20))
 	%transparency.value = saved_data.dialogue_box_transparency
 	$transparency/HBoxContainer/data_display_box/CenterContainer/data_display.text = str(saved_data.dialogue_box_transparency)
-
+	
 func _on_play_speed_value_changed(value):
 	var saved_data = ResourceLoader.load(setting_save)
 	saved_data.calc_play_speed(value)

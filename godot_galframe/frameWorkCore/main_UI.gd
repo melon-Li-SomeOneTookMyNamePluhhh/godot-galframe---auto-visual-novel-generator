@@ -78,6 +78,7 @@ func _on_volumn_pressed():
 	if $Control/volumn_slider.visible:
 		$Control/volumn_slider.visible = false
 		$Control/volumn_slider.editable = false
+		return
 	$Control/volumn_slider.visible = true
 	$Control/volumn_slider.editable = true
 

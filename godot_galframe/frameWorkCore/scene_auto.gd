@@ -28,6 +28,7 @@ var loading = false
 var option = preload("res://frameWorkCore/choice.tscn")
 var save_path = "user://save/save_total.tres"
 
+
 func _ready():
 	$"DO NOT TOUCH/Panel".visible = false
 	%dialogue.text = ""
@@ -41,7 +42,8 @@ func _ready():
 	set_bus()
 	load_setting()
 	self.get_tree().call_group("main", "game_created")
-
+	
+	
 func set_bus():
 	# 将所有音频设置到对应的管线
 	for bgm in self.find_child("music").find_child("bgm").get_children():
@@ -50,7 +52,7 @@ func set_bus():
 		voice.set_bus("voice")
 	for sfx in self.find_child("music").find_child("sound_effect").get_children():
 		sfx.set_bus("sound_effect")
-
+		
 		
 func _process(_delta):
 	if Input.is_action_just_pressed("press"):
@@ -86,9 +88,9 @@ func _process(_delta):
 		start_time = false
 		$auto_play_timer.start()
 		# 如果处于自动播放状态，且台词已播放至结尾。那么开始跳到下一台词的倒计时
-
-
 # 展示台词和角色名
+
+
 func _proceed():
 	if choice_reach:
 		return
@@ -117,9 +119,7 @@ func _proceed():
 		self.get_tree().call_group("dialogue", "_start_dialogue")
 		%character.text = character
 		_command_execute(command)
-
 # 读取命令并执行	
-
 
 
 func _command_execute(commands: String):
@@ -145,8 +145,8 @@ func _command_execute(commands: String):
 			_change_background(order_mod.pop_front())
 		elif which_order == "bgm" or which_order == "sound_effect" or which_order == "voice":
 			change_music(which_order, order_mod.pop_front())
-
-
+			
+			
 func change_music(type: String, which: String):
 	if loading:
 		return
@@ -171,35 +171,27 @@ func change_music(type: String, which: String):
 			return
 	$"DO NOT TOUCH/Panel".visible = true
 	%errorlog.text = "错误：音频素材对应的音频类型槽位不足，请参考教程并复制粘贴对应音频槽位下的音乐节点"
-
-	
 func music_clear(type: String):
 	for slot in self.find_child("music").find_child(type).get_children():
 		slot.playing = false
 		slot.stream = null
-
-
 func _change_avatar(avatar: String, position = "mid", slot = "character"):
 	var start_location = "res://artResource/character/"
 	var avatar_at = _helper_search_file(start_location, avatar)
 	if avatar_at == null:
 		$"DO NOT TOUCH/Panel".visible = true
-		%errorlog.text = "错误：未找到对应角色,请检查角色图像是否位于\"artResource\"文件夹下以及图片后缀(.jpg, .png) 是否对应"
+		%errorlog.text = "错误：未找到对应角色,请检查角色图像是否位于\"character\"文件夹下以及图片后缀(.jpg, .png) 是否对应"
 		return
 	%background.find_child(position).find_child(slot).texture = ResourceLoader.load(avatar_at)
-
-
 func _change_background(background: String):
 	var start_location = "res://artResource/background/"
 	var background_at = _helper_search_file(start_location, background)
 	if background_at == null:
+		$"DO NOT TOUCH/Panel".visible = true
+		%errorlog.text = "错误：未找到对应背景,请检查角色图像是否位于\"background\"文件夹下以及图片后缀(.jpg, .png) 是否对应"
 		return
 	$background/background.texture = ResourceLoader.load(background_at)
-
-
-
 # 读取选项并跳转
-
 
 
 func _choice_jump():
@@ -220,8 +212,8 @@ func _choice_jump():
 			choice_text.text = choice.substr(0, choice.rfind(" "))
 			going_to.text = choice.substr(choice.rfind(" ") + 1)
 			ready_option.connect("travel_to", _travel)
-
-
+			
+			
 func _travel(location: String):
 	# 根据txt文件名找到文件路径并跳转到该文件
 	var new_path = file_location.substr(0, file_location.rfind(file_location.get_file()))
@@ -256,9 +248,8 @@ func _helper_search_file(directory: String, files: String):
 			if _helper_search_file(directory +"/" + path+ "/", files) != null:
 				return _helper_search_file(directory +"/" + path, files)
 		return null
-
-
-
+		
+		
 func _on_save_pressed():
 	var temp_screen = get_viewport().get_texture().get_image()
 	get_tree().call_group("main", "display_save")
@@ -267,23 +258,23 @@ func _on_save_pressed():
 		if canvas is CanvasLayer:
 			canvas.visible = false
 	self.set_process(false)
-
-
+	
+	
 func _on_load_pressed():
 	get_tree().call_group("main", "display_load")
 	for canvas in self.get_children():
 		if canvas is CanvasLayer:
 			canvas.visible = false
 	self.set_process(false)
-
-
+	
+	
 func _on_quicksave_pressed():
 	var progress = progress_data.new()
 	progress.which_file = file_location.get_file()
 	progress.which_line = line_at
 	ResourceSaver.save(progress, "user://save/quick_save.tres")
-
-
+	
+	
 func _on_quickload_pressed():
 	var save_path = "user://save/quick_save.tres"
 	var find_save = ResourceLoader.load(save_path)
@@ -299,14 +290,11 @@ func _on_setting_pressed():
 		if canvas is CanvasLayer:
 			canvas.visible = false
 	self.set_process(false)
-
-
-
+	
+	
 func _on_review_pressed():
 	pass # Replace with function body.
 	# 还没做
-
-
 func _on_show_tree_pressed():
 	pass # Replace with function body.
 	# 还没做
@@ -322,8 +310,8 @@ func _on_auto_pressed():
 	auto_play = true
 	%dialogue.on_auto = true
 	_proceed()
-
-
+	
+	
 func _on_forward_speed_pressed():
 	if speed_up:
 		speed_up = false
@@ -332,16 +320,15 @@ func _on_forward_speed_pressed():
 	speed_up = true
 	_proceed()
 	
-
-
+	
 func _on_forward_to_next_choice_pressed():
 	if choice_reach:
 		return
 	while not choice_reach:
 		_proceed()
 	# 先这样, 之后改
-
-
+	
+	
 func _on_visible_pressed():
 	if $dialogue.visible and $UI.visible and $choice.visible:
 		$dialogue.visible = false
@@ -354,13 +341,10 @@ func _on_visible_pressed():
 		$UI.visible = true
 		$choice.visible = true
 		# 这段可能不用, 但留着保险
-
-
-
+		
+		
 func _on_leave_pressed():
 	get_tree().call_group("main", "back_menu")
-
-
 func load_progress(which_file: String, which_line: int):
 	loading = true
 	file_location = "res://dialogue/Start.txt"
@@ -371,35 +355,26 @@ func load_progress(which_file: String, which_line: int):
 	loading = false
 	_command_execute(command)
 	
+	
 func load_setting():
 	var save = ResourceLoader.load(save_path)
 	$dialogue/dialogue_box.modulate.a = save.dialogue_box_transparency / 100
 	print(save.windows_color)
-	$UI/Control/ColorRect.color = save.windows_color
-	
-	
-
-
-
-		
+	$UI/Control/ColorRect.color = save.windows_color	
 # no need to care for the rest it is what it is
+
 
 func _on_button():
 	can_press = false
-
-
+	
 func _out_button():
 	can_press = true
 	
-	
 func _transition_done():
-	self.get_tree().call_group("dialogue", "_start_dialogue")
-	
+	self.get_tree().call_group("dialogue", "_start_dialogue")	
 	
 func get_progress(slots: int):
 	self.get_tree().call_group("save", "save_progress", file_location.get_file(), slots, line_at)
-
-
 
 func _on_auto_play_timer_timeout():
 	start_time = true
